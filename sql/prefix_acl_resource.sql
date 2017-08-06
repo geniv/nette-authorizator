@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 02. čen 2017, 00:36
+-- Vytvořeno: Ned 06. srp 2017, 11:46
 -- Verze serveru: 10.0.29-MariaDB-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.18-0ubuntu0.16.04.1
 
@@ -23,46 +23,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `prefix_acl_roles`
+-- Struktura tabulky `prefix_acl_resource`
 --
 
-CREATE TABLE `prefix_acl_roles` (
+CREATE TABLE `prefix_acl_resource` (
   `id` int(11) NOT NULL,
-  `id_parent` int(11) DEFAULT NULL COMMENT 'rodic',
-  `role` varchar(50) DEFAULT NULL COMMENT 'role'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl role';
+  `resource` varchar(100) DEFAULT NULL COMMENT 'zdroj'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl zdroje';
 
 --
 -- Klíče pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `prefix_acl_roles`
+-- Klíče pro tabulku `prefix_acl_resource`
 --
-ALTER TABLE `prefix_acl_roles`
+ALTER TABLE `prefix_acl_resource`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `role_UNIQUE` (`role`),
-  ADD KEY `fk_acl_roles_acl_roles_idx` (`id_parent`);
+  ADD UNIQUE KEY `resource_UNIQUE` (`resource`);
 
 --
 -- AUTO_INCREMENT pro tabulky
 --
 
 --
--- AUTO_INCREMENT pro tabulku `prefix_acl_roles`
+-- AUTO_INCREMENT pro tabulku `prefix_acl_resource`
 --
-ALTER TABLE `prefix_acl_roles`
+ALTER TABLE `prefix_acl_resource`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Omezení pro exportované tabulky
---
-
---
--- Omezení pro tabulku `prefix_acl_roles`
---
-ALTER TABLE `prefix_acl_roles`
-  ADD CONSTRAINT `fk_acl_roles_acl_roles` FOREIGN KEY (`id_parent`) REFERENCES `prefix_acl_roles` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

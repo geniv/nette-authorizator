@@ -3,6 +3,7 @@
   "description": "Authorizator extension for Nette Framework",
   "keywords": [
     "nette",
+    "acl",
     "authorizator",
     "geniv"
   ],
@@ -15,7 +16,8 @@
   ],
   "require": {
     "php": ">=5.6.0",
-    "nette/nette": ">=2.4.0"
+    "nette/nette": ">=2.4.0",
+    "dibi/dibi": ">=3.0.0"
   },
   "autoload": {
     "classmap": [

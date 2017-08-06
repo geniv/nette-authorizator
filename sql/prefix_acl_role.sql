@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 02. čen 2017, 00:36
+-- Vytvořeno: Ned 06. srp 2017, 11:46
 -- Verze serveru: 10.0.29-MariaDB-0ubuntu0.16.04.1
 -- Verze PHP: 7.0.18-0ubuntu0.16.04.1
 
@@ -23,33 +23,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `prefix_acl_resources`
+-- Struktura tabulky `prefix_acl_role`
 --
 
-CREATE TABLE `prefix_acl_resources` (
+CREATE TABLE `prefix_acl_role` (
   `id` int(11) NOT NULL,
-  `resource` varchar(100) DEFAULT NULL COMMENT 'zdroj'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl zdroje';
+  `role` varchar(50) DEFAULT NULL COMMENT 'role'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl role';
 
 --
 -- Klíče pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `prefix_acl_resources`
+-- Klíče pro tabulku `prefix_acl_role`
 --
-ALTER TABLE `prefix_acl_resources`
+ALTER TABLE `prefix_acl_role`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `resource_UNIQUE` (`resource`);
+  ADD UNIQUE KEY `role_UNIQUE` (`role`);
 
 --
 -- AUTO_INCREMENT pro tabulky
 --
 
 --
--- AUTO_INCREMENT pro tabulku `prefix_acl_resources`
+-- AUTO_INCREMENT pro tabulku `prefix_acl_role`
 --
-ALTER TABLE `prefix_acl_resources`
+ALTER TABLE `prefix_acl_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
