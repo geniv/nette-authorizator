@@ -31,8 +31,9 @@ neon configure:
 ```neon
 # acl
 authorizator:
-	policy: allow
-	tablePrefix: %tablePrefix%
+    policy: allow
+    tablePrefix: %tablePrefix%
+#   autowired: false    # default null, false => disable autowiring (in case multiple linked extension) | self
 ```
 
 neon configure extension:

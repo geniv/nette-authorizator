@@ -18,6 +18,7 @@ class Extension extends CompilerExtension
     private $defaults = [
         'policy'      => 'allow',   // allow | deny | none
         'tablePrefix' => null,
+        'autowired'   => null,
     ];
 
 
@@ -32,5 +33,11 @@ class Extension extends CompilerExtension
         // define authorizator
         $builder->addDefinition($this->prefix('default'))
             ->setClass(DibiAuthorizator::class, [$config]);
+
+        // if define autowired then set value
+        if (isset($config['autowired'])) {
+            $builder->getDefinition($this->prefix('default'))
+                ->setAutowired($config['autowired']);
+        }
     }
 }
