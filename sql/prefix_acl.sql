@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.6.6deb4
+-- https://www.phpmyadmin.net/
 --
--- Počítač: localhost
--- Vytvořeno: Ned 06. srp 2017, 11:43
--- Verze serveru: 10.0.29-MariaDB-0ubuntu0.16.04.1
--- Verze PHP: 7.0.18-0ubuntu0.16.04.1
+-- Počítač: localhost:3306
+-- Vytvořeno: Pon 06. lis 2017, 12:32
+-- Verze serveru: 10.1.26-MariaDB-0+deb9u1
+-- Verze PHP: 7.0.19-1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,8 +32,18 @@ CREATE TABLE `prefix_acl` (
   `id_resource` int(11) DEFAULT NULL COMMENT 'vazba na zdroj',
   `id_privilege` int(11) DEFAULT NULL COMMENT 'vazba na opravneni',
   `active` tinyint(1) DEFAULT '0' COMMENT 'aktivni',
-  `position` int(11) DEFAULT NULL COMMENT 'poradi'
+  `position` int(11) DEFAULT '0' COMMENT 'poradi'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl';
+
+--
+-- Vypisuji data pro tabulku `prefix_acl`
+--
+
+INSERT INTO `prefix_acl` (`id`, `id_role`, `id_resource`, `id_privilege`, `active`, `position`) VALUES
+(156, 1, 1, 1, 1, 0),
+(157, 1, 1, 2, 1, 0),
+(158, 1, 2, 3, 1, 0),
+(159, 1, 2, 4, 1, 0);
 
 --
 -- Klíče pro exportované tabulky
@@ -57,7 +67,7 @@ ALTER TABLE `prefix_acl`
 -- AUTO_INCREMENT pro tabulku `prefix_acl`
 --
 ALTER TABLE `prefix_acl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 --
 -- Omezení pro exportované tabulky
 --
@@ -66,9 +76,9 @@ ALTER TABLE `prefix_acl`
 -- Omezení pro tabulku `prefix_acl`
 --
 ALTER TABLE `prefix_acl`
-  ADD CONSTRAINT `fk_acl_acl_privilege` FOREIGN KEY (`id_privilege`) REFERENCES `prefix_acl_privilege` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-  ADD CONSTRAINT `fk_acl_acl_resource` FOREIGN KEY (`id_resource`) REFERENCES `prefix_acl_resource` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-  ADD CONSTRAINT `fk_acl_acl_role` FOREIGN KEY (`id_role`) REFERENCES `prefix_acl_role` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+  ADD CONSTRAINT `fk_acl_acl_privilege` FOREIGN KEY (`id_privilege`) REFERENCES `prefix_acl_privilege` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_acl_acl_resource` FOREIGN KEY (`id_resource`) REFERENCES `prefix_acl_resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_acl_acl_role` FOREIGN KEY (`id_role`) REFERENCES `prefix_acl_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
