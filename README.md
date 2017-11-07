@@ -81,6 +81,8 @@ usage:
 $user->isAllowed('sekce-forum', 'zobrazit')
 ```
 
+**All method onSuccess callback are default defined like `$this->redirect('this');`**
+
 presenters form:
 ```php
 protected function createComponentRoleForm(RoleForm $roleForm): RoleForm
