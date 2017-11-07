@@ -22,7 +22,12 @@ require:
 Include in application
 ----------------------
 
-policy:
+### available source drivers:
+- Neon (neon filesystem)
+- Dibi (dibi + cache)
+- Array (neon configure)
+
+### policy:
 - `allow` - all is deny, allow part
 - `deny` - all is allow, deny part
 - `none` - all is allow, ignore part
@@ -78,6 +83,31 @@ $user->isAllowed('sekce-forum', 'zobrazit')
 
 presenters form:
 ```php
+protected function createComponentRoleForm(RoleForm $roleForm): RoleForm
+{
+    //$roleForm->setTemplatePath(path);
+    //$roleForm->onSuccess[] = function (array $values) { };
+    //$roleForm->onError[] = function (array $values) { };
+    return $roleForm;
+}
+
+
+protected function createComponentResourceForm(ResourceForm $resourceForm): ResourceForm
+{
+    //$resourceForm->setTemplatePath(path);
+    //$resourceForm->onSuccess[] = function (array $values) { };
+    //$resourceForm->onError[] = function (array $values) { };
+    return $resourceForm;
+}
+
+
+protected function createComponentPrivilegeForm(PrivilegeForm $privilegeForm): PrivilegeForm
+{
+    //$privilegeForm->setTemplatePath(path);
+    //$privilegeForm->onSuccess[] = function (array $values) { };
+    //$privilegeForm->onError[] = function (array $values) { };
+    return $privilegeForm;
+}
 ```
 
 usage form:
