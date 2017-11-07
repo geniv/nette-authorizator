@@ -36,30 +36,30 @@ neon configure:
 ```neon
 # acl
 authorizator:
-#   autowired: false    # default null, false => disable autowiring (in case multiple linked extension) | self
-	policy: allow		# allow (all is deny, allow part) | deny (all is allow, deny part) | none (all is allow, ignore part)
-	source: "Neon"
-	path: %appDir%/components/test/nette-authorizator/sql/acl.neon
-#	source: "Dibi"
-#	tablePrefix: %tablePrefix%
-#	source: "Array"
-#	role:
-#		guest: "Návštěvník"
-#		moderator: "Moderátor"
-#		admin: "Adminstrator"
-#	resource:
-#		article: "članky"
-#		comment: "komenáře"
-#		poll: "hlasování"
-#	privilege:
-#		show: "zobrazit"
-#		insert: "vložit"
-#		update: "upravit"
-#		delete: "smazat"
-#	acl:
-#		moderator:
-#			article: [show, insert, update]
-#		admin: all
+#   autowired: false    # default null, true|false|self|null
+    policy: allow       # allow (all is deny, allow part) | deny (all is allow, deny part) | none (all is allow, ignore part)
+    source: "Neon"
+    path: %appDir%/components/test/nette-authorizator/sql/acl.neon
+#    source: "Dibi"
+#    tablePrefix: %tablePrefix%
+#    source: "Array"
+#    role:
+#        guest: "Návštěvník"
+#        moderator: "Moderátor"
+#        admin: "Adminstrator"
+#    resource:
+#        article: "članky"
+#        comment: "komenáře"
+#        poll: "hlasování"
+#    privilege:
+#        show: "zobrazit"
+#        insert: "vložit"
+#        update: "upravit"
+#        delete: "smazat"
+#    acl:
+#        moderator:
+#            article: [show, insert, update]
+#        admin: all
 ```
 
 neon configure extension:
