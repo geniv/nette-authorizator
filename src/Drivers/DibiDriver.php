@@ -79,7 +79,7 @@ class DibiDriver extends Authorizator
                 $this->cache->save('resource', $this->resource);  // cachovani bez expirace
             }
 
-            // cachce privilege
+            // cache privilege
             $this->privilege = $this->cache->load('privilege');
             if ($this->privilege === null) {
                 $this->privilege = $this->connection->select('id, privilege, name')
@@ -89,12 +89,12 @@ class DibiDriver extends Authorizator
                 $this->cache->save('privilege', $this->privilege);  // cachovani bez expirace
             }
 
-            // set role
+            // set permission role
             foreach ($this->role as $item) {
                 $this->permission->addRole($item['role']);
             }
 
-            // set resource
+            // set permission resource
             foreach ($this->resource as $item) {
                 if ($item['resource']) {
                     $this->permission->addResource($item['resource']);
@@ -106,23 +106,26 @@ class DibiDriver extends Authorizator
                 $this->permission->allow();
             }
 
-            $cursor = $this->connection->select('acl.id,' .
-                'role.id id_role, role.role,' .
-                'resource.id id_resource, resource.resource,' .
-                'privilege.id id_privilege, privilege.privilege')
-                ->from($this->tableAcl)->as('acl')
-                ->join($this->tableRole)->as('role')->on('role.id=acl.id_role')
-                ->leftJoin($this->tableResource)->as('resource')->on('resource.id=acl.id_resource')
-                ->leftJoin($this->tablePrivilege)->as('privilege')->on('privilege.id=acl.id_privilege')
-                ->where(['acl.active' => true,])
-                ->orderBy('acl.position')->asc();
+            // cache acl
+            $this->acl = $this->cache->load('acl');
+            if ($this->acl === null) {
+                $this->acl = $this->connection->select('acl.id,' .
+                    'role.id id_role, role.role,' .
+                    'resource.id id_resource, resource.resource,' .
+                    'privilege.id id_privilege, privilege.privilege')
+                    ->from($this->tableAcl)->as('acl')
+                    ->join($this->tableRole)->as('role')->on('role.id=acl.id_role')
+                    ->leftJoin($this->tableResource)->as('resource')->on('resource.id=acl.id_resource')
+                    ->leftJoin($this->tablePrivilege)->as('privilege')->on('privilege.id=acl.id_privilege')
+                    ->where(['acl.active' => true,])
+                    ->orderBy('acl.position')->asc()
+                    ->fetchAll();
 
-            //$cursor->test();
+                $this->cache->save('acl', $this->acl);  // cachovani bez expirace
+            }
 
-            // set acl
-            foreach ($cursor as $item) {
-                $this->acl[] = $item;
-
+            // set permission acl
+            foreach ($this->acl as $item) {
                 if ($item['role'] && $item['resource'] && $item['privilege']) {
                     if ($this->policy == self::POLICY_ALLOW) {
                         $this->permission->allow($item['role'], $item['resource'], $item['privilege']);
