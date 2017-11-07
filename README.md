@@ -23,8 +23,8 @@ Include in application
 ----------------------
 
 ### available source drivers:
-- Neon (neon filesystem)
-- Dibi (dibi + cache)
+- Neon (neon filesystem) - support **form**
+- Dibi (dibi + cache) - support **form**
 - Array (neon configure)
 
 ### policy:
@@ -78,11 +78,23 @@ $this->user->isAllowed('sekce-forum', 'zobrazit');
 
 usage:
 ```latte
-$user->isAllowed('sekce-forum', 'zobrazit')
+<span n:if="$user->isAllowed('sekce-forum', 'zobrazit')">...</span>
 ```
+
+**All method onSuccess callback are default defined like `$this->redirect('this');`**
 
 presenters form:
 ```php
+use Authorizator\Forms\AclForm;
+use Authorizator\Forms\PrivilegeForm;
+use Authorizator\Forms\ResourceForm;
+use Authorizator\Forms\RoleForm;
+...
+abstract class BasePresenter extends Presenter
+{
+    use AutowiredComponent;
+...
+
 protected function createComponentRoleForm(RoleForm $roleForm): RoleForm
 {
     //$roleForm->setTemplatePath(path);
@@ -110,7 +122,9 @@ protected function createComponentPrivilegeForm(PrivilegeForm $privilegeForm): P
 }
 ```
 
-usage form:
+form not required for correct function ACL.
+
+usage **form**:
 ```latte
 {control acl:role}
 {control acl:resource}
