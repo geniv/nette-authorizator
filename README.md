@@ -120,14 +120,23 @@ protected function createComponentPrivilegeForm(PrivilegeForm $privilegeForm): P
     //$privilegeForm->onError[] = function (array $values) { };
     return $privilegeForm;
 }
+
+protected function createComponentAclForm(AclForm $aclForm): AclForm
+{
+    //$privilegeForm->onSuccess[] = function (array $values) { };
+    //$privilegeForm->onError[] = function (array $values) { };
+    return $aclForm;
+}
 ```
 
 form not required for correct function ACL.
 
+Available form: role, resource, privilege and acl.
+
 usage **form**:
 ```latte
-{control acl:role}
-{control acl:resource}
-{control acl:privilege}
-{control acl}
+{control roleForm}
+{control resourceForm}
+{control privilegeForm}
+{control aclForm}
 ```
