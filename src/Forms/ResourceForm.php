@@ -86,8 +86,6 @@ class ResourceForm extends Control
         $form->addHidden('id');
         $form->addText('resource', 'acl-resourceform-resource')
             ->setRequired('acl-resourceform-role-required');
-        $form->addText('name', 'acl-resourceform-name')
-            ->setRequired('acl-resourceform-name-required');
 
         $form->addSubmit('save', 'acl-resourceform-save');
 

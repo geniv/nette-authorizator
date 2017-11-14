@@ -86,8 +86,6 @@ class RoleForm extends Control
         $form->addHidden('id');
         $form->addText('role', 'acl-roleform-role')
             ->setRequired('acl-roleform-role-required');
-        $form->addText('name', 'acl-roleform-name')
-            ->setRequired('acl-roleform-name-required');
 
         $form->addSubmit('save', 'acl-roleform-save');
 

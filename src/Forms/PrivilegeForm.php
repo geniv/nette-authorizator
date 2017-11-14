@@ -86,8 +86,6 @@ class PrivilegeForm extends Control
         $form->addHidden('id');
         $form->addText('privilege', 'acl-privilegeform-privilege')
             ->setRequired('acl-privilegeform-role-required');
-        $form->addText('name', 'acl-privilegeform-name')
-            ->setRequired('acl-privilegeform-name-required');
 
         $form->addSubmit('save', 'acl-privilegeform-save');
 
