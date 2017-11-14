@@ -148,6 +148,42 @@ abstract class Authorizator implements IAuthorizator
 
 
     /**
+     * Set allowed.
+     *
+     * @param $role
+     * @param $resource
+     * @param $privilege
+     * @return Authorizator
+     */
+    public function setAllowed($role = self::ALL, $resource = self::ALL, $privilege = self::ALL): self
+    {
+        if ($this->policy == self::POLICY_ALLOW) {
+            $this->permission->allow($role, $resource, $privilege);
+        } else {
+            $this->permission->deny($role, $resource, $privilege);
+        }
+        return $this;
+    }
+
+
+    /**
+     * Performs a role-based authorization.
+     *
+     * @param $role
+     * @param $resource
+     * @param $privilege
+     * @return bool
+     */
+    public function isAllowed($role, $resource, $privilege): bool
+    {
+        if ($this->policy == self::POLICY_NONE) {
+            return true;
+        }
+        return $this->permission->isAllowed($role, $resource, $privilege);
+    }
+
+
+    /**
      * Init data.
      *
      * @param array $parameters
@@ -190,21 +226,4 @@ abstract class Authorizator implements IAuthorizator
      * @return int
      */
     abstract public function saveAcl($role, array $values): int;
-
-
-    /**
-     * Performs a role-based authorization.
-     *
-     * @param $role
-     * @param $resource
-     * @param $privilege
-     * @return bool
-     */
-    public function isAllowed($role, $resource, $privilege): bool
-    {
-        if ($this->policy == self::POLICY_NONE) {
-            return true;
-        }
-        return $this->permission->isAllowed($role, $resource, $privilege);
-    }
 }

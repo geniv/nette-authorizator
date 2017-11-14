@@ -1,17 +1,17 @@
 role:
-	moderator: Moderátor
-	admin: Adminstrator
+	- moderator
+	- admin
 
 resource:
-	article: članky
-	comment: komenáře
-	poll: hlasování
+	- article
+	- comment
+	- poll
 
 privilege:
-	show: zobrazit
-	insert: vložit
-	update: upravit
-	delete: smazat
+	- show
+	- insert
+	- update
+	- delete
 
 acl:
 	moderator:

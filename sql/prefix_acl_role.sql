@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Pon 06. lis 2017, 12:32
+-- Vytvořeno: Úte 14. lis 2017, 16:11
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
 -- Verze PHP: 7.0.19-1
 
@@ -28,17 +28,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `prefix_acl_role` (
   `id` int(11) NOT NULL,
-  `role` varchar(50) DEFAULT NULL COMMENT 'role',
-  `name` varchar(255) DEFAULT NULL
+  `role` varchar(50) DEFAULT NULL COMMENT 'role'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl role';
 
 --
 -- Vypisuji data pro tabulku `prefix_acl_role`
 --
 
-INSERT INTO `prefix_acl_role` (`id`, `role`, `name`) VALUES
-(1, 'moderator', 'moderátor'),
-(2, 'admin', 'administrátor');
+INSERT INTO `prefix_acl_role` (`id`, `role`) VALUES
+(3, 'aaasd'),
+(2, 'admin'),
+(1, 'moderator');
 
 --
 -- Klíče pro exportované tabulky
@@ -59,7 +59,7 @@ ALTER TABLE `prefix_acl_role`
 -- AUTO_INCREMENT pro tabulku `prefix_acl_role`
 --
 ALTER TABLE `prefix_acl_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
