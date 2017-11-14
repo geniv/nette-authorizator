@@ -62,7 +62,7 @@ class DibiDriver extends Authorizator
             // cache role
             $this->role = $this->cache->load('role');
             if ($this->role === null) {
-                $this->role = $this->connection->select('id, role, name')
+                $this->role = $this->connection->select('id, role')
                     ->from($this->tableRole)
                     ->fetchAssoc('id');
 
@@ -72,7 +72,7 @@ class DibiDriver extends Authorizator
             // cache resource
             $this->resource = $this->cache->load('resource');
             if ($this->resource === null) {
-                $this->resource = $this->connection->select('id, resource, name')
+                $this->resource = $this->connection->select('id, resource')
                     ->from($this->tableResource)
                     ->fetchAssoc('id');
 
@@ -82,7 +82,7 @@ class DibiDriver extends Authorizator
             // cache privilege
             $this->privilege = $this->cache->load('privilege');
             if ($this->privilege === null) {
-                $this->privilege = $this->connection->select('id, privilege, name')
+                $this->privilege = $this->connection->select('id, privilege')
                     ->from($this->tablePrivilege)
                     ->fetchAssoc('id');
 
@@ -127,23 +127,11 @@ class DibiDriver extends Authorizator
             // set permission acl
             foreach ($this->acl as $item) {
                 if ($item['role'] && $item['resource'] && $item['privilege']) {
-                    if ($this->policy == self::POLICY_ALLOW) {
-                        $this->permission->allow($item['role'], $item['resource'], $item['privilege']);
-                    } else {
-                        $this->permission->deny($item['role'], $item['resource'], $item['privilege']);
-                    }
+                    $this->setAllowed($item['role'], $item['resource'], $item['privilege']);
                 } else if ($item['role'] && $item['resource']) {
-                    if ($this->policy == self::POLICY_ALLOW) {
-                        $this->permission->allow($item['role'], $item['resource']);
-                    } else {
-                        $this->permission->deny($item['role'], $item['resource']);
-                    }
+                    $this->setAllowed($item['role'], $item['resource']);
                 } else if ($item['role']) {
-                    if ($this->policy == self::POLICY_ALLOW) {
-                        $this->permission->allow($item['role']);
-                    } else {
-                        $this->permission->deny($item['role']);
-                    }
+                    $this->setAllowed($item['role']);
                 }
             }
         }

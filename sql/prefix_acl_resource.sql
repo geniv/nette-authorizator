@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Pon 06. lis 2017, 12:32
+-- Vytvořeno: Úte 14. lis 2017, 16:11
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
 -- Verze PHP: 7.0.19-1
 
@@ -28,17 +28,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `prefix_acl_resource` (
   `id` int(11) NOT NULL,
-  `resource` varchar(100) DEFAULT NULL COMMENT 'zdroj',
-  `name` varchar(255) DEFAULT NULL
+  `resource` varchar(100) DEFAULT NULL COMMENT 'zdroj'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl zdroje';
 
 --
 -- Vypisuji data pro tabulku `prefix_acl_resource`
 --
 
-INSERT INTO `prefix_acl_resource` (`id`, `resource`, `name`) VALUES
-(1, 'article', 'članky'),
-(2, 'comment', 'komentáře');
+INSERT INTO `prefix_acl_resource` (`id`, `resource`) VALUES
+(1, 'article'),
+(2, 'comment');
 
 --
 -- Klíče pro exportované tabulky
@@ -59,7 +58,7 @@ ALTER TABLE `prefix_acl_resource`
 -- AUTO_INCREMENT pro tabulku `prefix_acl_resource`
 --
 ALTER TABLE `prefix_acl_resource`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

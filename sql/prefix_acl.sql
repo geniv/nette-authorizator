@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Pon 06. lis 2017, 12:32
+-- Vytvořeno: Úte 14. lis 2017, 16:11
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
 -- Verze PHP: 7.0.19-1
 
@@ -67,7 +67,7 @@ ALTER TABLE `prefix_acl`
 -- AUTO_INCREMENT pro tabulku `prefix_acl`
 --
 ALTER TABLE `prefix_acl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 --
 -- Omezení pro exportované tabulky
 --

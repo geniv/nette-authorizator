@@ -23,22 +23,22 @@ class ArrayDriver extends Authorizator
     {
         if ($this->policy != self::POLICY_NONE) {
             // set role
-            foreach ($parameters['role'] as $role => $name) {
+            foreach ($parameters['role'] as $role) {
                 $this->permission->addRole($role);
 
-                $this->role[$role] = ['id' => $role, 'role' => $role, 'name' => $name];
+                $this->role[$role] = ['id' => $role, 'role' => $role];
             }
 
             // set resource
-            foreach ($parameters['resource'] as $resource => $name) {
+            foreach ($parameters['resource'] as $resource) {
                 $this->permission->addResource($resource);
 
-                $this->resource[$resource] = ['id' => $resource, 'resource' => $resource, 'name' => $name];
+                $this->resource[$resource] = ['id' => $resource, 'resource' => $resource];
             }
 
             // set privilege
-            foreach ($parameters['privilege'] as $privilege => $name) {
-                $this->privilege[$privilege] = ['id' => $privilege, 'privilege' => $privilege, 'name' => $name];
+            foreach ($parameters['privilege'] as $privilege) {
+                $this->privilege[$privilege] = ['id' => $privilege, 'privilege' => $privilege];
             }
 
             // for deny enable all
@@ -50,12 +50,12 @@ class ArrayDriver extends Authorizator
             foreach ($parameters['acl'] as $role => $resources) {
                 if (is_array($resources)) {
                     foreach ($resources as $resource => $privilege) {
-
+                        // fill acl array
                         foreach ($privilege as $item) {
                             $this->acl[] = ['id_role' => $role, 'id_resource' => $resource, 'id_privilege' => $item];
                         }
 
-                        // automtic remove acl not exist role
+                        // automtic remove acl not exist role from NEON file
                         if (!isset($this->role[$role])) {
                             $this->saveAcl($role, []);
                         }
@@ -65,11 +65,7 @@ class ArrayDriver extends Authorizator
                             $privilege = self::ALL;
                         }
 
-                        if ($this->policy == self::POLICY_ALLOW) {
-                            $this->permission->allow($role, $resource, $privilege);
-                        } else {
-                            $this->permission->deny($role, $resource, $privilege);
-                        }
+                        $this->setAllowed($role, $resource, $privilege);
                     }
                 } else {
                     //vse
@@ -77,11 +73,7 @@ class ArrayDriver extends Authorizator
 
                         $this->acl[] = ['id_role' => $role, 'id_resource' => null, 'id_privilege' => null];
 
-                        if ($this->policy == self::POLICY_ALLOW) {
-                            $this->permission->allow($role);
-                        } else {
-                            $this->permission->deny($role);
-                        }
+                        $this->setAllowed($role);
                     }
                 }
             }

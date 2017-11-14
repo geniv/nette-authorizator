@@ -44,18 +44,18 @@ authorizator:
 #    tablePrefix: %tablePrefix%
 #    source: "Array"
 #    role:
-#        guest: "Návštěvník"
-#        moderator: "Moderátor"
-#        admin: "Adminstrator"
+#        - guest
+#        - moderator
+#        - admin
 #    resource:
-#        article: "članky"
-#        comment: "komenáře"
-#        poll: "hlasování"
+#        - article
+#        - comment
+#        - poll
 #    privilege:
-#        show: "zobrazit"
-#        insert: "vložit"
-#        update: "upravit"
-#        delete: "smazat"
+#        - show
+#        - insert
+#        - update
+#        - delete
 #    acl:
 #        moderator:
 #            article: [show, insert, update]
@@ -126,6 +126,18 @@ protected function createComponentAclForm(AclForm $aclForm): AclForm
     //$privilegeForm->onSuccess[] = function (array $values) { };
     //$privilegeForm->onError[] = function (array $values) { };
     return $aclForm;
+}
+```
+
+generic usage on security base presenter:
+```php
+$acl = $this->user->getAuthorizator();
+// manual set allowed with internal resolve policy
+$acl->setAllowed(IAuthorizator::ALL, 'Homepage');
+$acl->setAllowed(IAuthorizator::ALL, 'Login');
+
+if (!$this->user->isAllowed($this->name, $this->action)) {
+    // NOT ALLOWED
 }
 ```
 

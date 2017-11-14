@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Pon 06. lis 2017, 12:32
+-- Vytvořeno: Úte 14. lis 2017, 16:11
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
 -- Verze PHP: 7.0.19-1
 
@@ -28,19 +28,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `prefix_acl_privilege` (
   `id` int(11) NOT NULL,
-  `privilege` varchar(255) DEFAULT NULL COMMENT 'opravneni',
-  `name` varchar(255) DEFAULT NULL
+  `privilege` varchar(255) DEFAULT NULL COMMENT 'opravneni'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl opravneni';
 
 --
 -- Vypisuji data pro tabulku `prefix_acl_privilege`
 --
 
-INSERT INTO `prefix_acl_privilege` (`id`, `privilege`, `name`) VALUES
-(1, 'insert', 'vložit'),
-(2, 'update', 'upravit'),
-(3, 'delete', 'smazat'),
-(4, 'show', 'zobrazit');
+INSERT INTO `prefix_acl_privilege` (`id`, `privilege`) VALUES
+(3, 'delete'),
+(1, 'insert'),
+(4, 'show'),
+(2, 'update');
 
 --
 -- Klíče pro exportované tabulky
@@ -61,7 +60,7 @@ ALTER TABLE `prefix_acl_privilege`
 -- AUTO_INCREMENT pro tabulku `prefix_acl_privilege`
 --
 ALTER TABLE `prefix_acl_privilege`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
