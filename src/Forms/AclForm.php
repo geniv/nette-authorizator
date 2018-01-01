@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator\Forms;
 
@@ -63,9 +63,9 @@ class AclForm extends Control
      * Set template path.
      *
      * @param $path
-     * @return AclForm
+     * @return $this
      */
-    public function setTemplatePath($path): self
+    public function setTemplatePath($path)
     {
         $this->templatePath = $path;
         return $this;
@@ -78,7 +78,7 @@ class AclForm extends Control
      * @param $name
      * @return Form
      */
-    protected function createComponentForm($name): Form
+    protected function createComponentForm($name)
     {
         $form = new Form($this, $name);
         $form->setTranslator($this->translator);

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator\Drivers;
 
@@ -34,9 +34,9 @@ class NeonDriver extends ArrayDriver
      * Set path.
      *
      * @param $path
-     * @return NeonDriver
+     * @return $this
      */
-    public function setPath($path): self
+    public function setPath($path)
     {
         $this->path = $path;
         return $this;
@@ -64,7 +64,7 @@ class NeonDriver extends ArrayDriver
      * @param array $values
      * @return int
      */
-    public function saveRole(array $values): int
+    public function saveRole(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -95,7 +95,7 @@ class NeonDriver extends ArrayDriver
      * @param array $values
      * @return int
      */
-    public function saveResource(array $values): int
+    public function saveResource(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -126,7 +126,7 @@ class NeonDriver extends ArrayDriver
      * @param array $values
      * @return int
      */
-    public function savePrivilege(array $values): int
+    public function savePrivilege(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -158,7 +158,7 @@ class NeonDriver extends ArrayDriver
      * @param array $values
      * @return int
      */
-    public function saveAcl($role, array $values): int
+    public function saveAcl($role, array $values)
     {
         unset($this->data['acl'][$role]);
 

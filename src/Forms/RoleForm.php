@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator\Forms;
 
@@ -62,7 +62,7 @@ class RoleForm extends Control
     /**
      * Set template path.
      *
-     * @param string $path
+     * @param $path
      * @return $this
      */
     public function setTemplatePath($path)
@@ -78,7 +78,7 @@ class RoleForm extends Control
      * @param $name
      * @return Form
      */
-    protected function createComponentForm($name): Form
+    protected function createComponentForm($name)
     {
         $form = new Form($this, $name);
         $form->setTranslator($this->translator);

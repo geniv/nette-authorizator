@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator\Drivers;
 
@@ -87,7 +87,7 @@ class ArrayDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveRole(array $values): int
+    public function saveRole(array $values)
     {
         return 0;
     }
@@ -99,7 +99,7 @@ class ArrayDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveResource(array $values): int
+    public function saveResource(array $values)
     {
         return 0;
     }
@@ -111,7 +111,7 @@ class ArrayDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function savePrivilege(array $values): int
+    public function savePrivilege(array $values)
     {
         return 0;
     }
@@ -124,7 +124,7 @@ class ArrayDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveAcl($role, array $values): int
+    public function saveAcl($role, array $values)
     {
         return 0;
     }
