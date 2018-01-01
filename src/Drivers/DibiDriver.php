@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator\Drivers;
 
@@ -32,10 +32,11 @@ class DibiDriver extends Authorizator
 
 
     /**
-     * DibiAuthorizator constructor.
+     * DibiDriver constructor.
      *
      * @param array      $parameters
      * @param Connection $connection
+     * @param IStorage   $storage
      */
     public function __construct(array $parameters, Connection $connection, IStorage $storage)
     {
@@ -144,7 +145,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveRole(array $values): int
+    public function saveRole(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -170,7 +171,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveResource(array $values): int
+    public function saveResource(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -196,7 +197,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function savePrivilege(array $values): int
+    public function savePrivilege(array $values)
     {
         $id = $values['id'];
         unset($values['id']);
@@ -223,7 +224,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      */
-    public function saveAcl($idRole, array $values): int
+    public function saveAcl($idRole, array $values)
     {
         // delete all acl for idRole
         $res = $this->connection->delete($this->tableAcl)->where(['id_role' => $idRole])->execute();

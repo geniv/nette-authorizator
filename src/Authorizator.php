@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Authorizator;
 
@@ -52,7 +52,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return array
      */
-    public function getRole(): array
+    public function getRole()
     {
         return $this->role;
     }
@@ -63,7 +63,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return array
      */
-    public function getResource(): array
+    public function getResource()
     {
         return $this->resource;
     }
@@ -74,7 +74,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return array
      */
-    public function getPrivilege(): array
+    public function getPrivilege()
     {
         return $this->privilege;
     }
@@ -87,7 +87,7 @@ abstract class Authorizator implements IAuthorizator
      * @param null $idResource
      * @return array
      */
-    public function getAcl($idRole = null, $idResource = null): array
+    public function getAcl($idRole = null, $idResource = null)
     {
         if ($idRole) {
             $callback = function ($row) use ($idRole, $idResource) {
@@ -112,7 +112,7 @@ abstract class Authorizator implements IAuthorizator
      * @param null $idResource
      * @return bool
      */
-    public function isAll($idRole, $idResource = null): bool
+    public function isAll($idRole, $idResource = null)
     {
         $acl = $this->getAcl($idRole);
         if ($idResource) {
@@ -141,7 +141,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @return Permission
      */
-    public function getPermission(): Permission
+    public function getPermission()
     {
         return $this->permission;
     }
@@ -153,9 +153,9 @@ abstract class Authorizator implements IAuthorizator
      * @param $role
      * @param $resource
      * @param $privilege
-     * @return Authorizator
+     * @return $this
      */
-    public function setAllowed($role = self::ALL, $resource = self::ALL, $privilege = self::ALL): self
+    public function setAllowed($role = self::ALL, $resource = self::ALL, $privilege = self::ALL)
     {
         if ($this->policy == self::POLICY_ALLOW) {
             $this->permission->allow($role, $resource, $privilege);
@@ -174,7 +174,7 @@ abstract class Authorizator implements IAuthorizator
      * @param $privilege
      * @return bool
      */
-    public function isAllowed($role, $resource, $privilege): bool
+    public function isAllowed($role, $resource, $privilege)
     {
         if ($this->policy == self::POLICY_NONE) {
             return true;
@@ -197,7 +197,7 @@ abstract class Authorizator implements IAuthorizator
      * @param array $values
      * @return int
      */
-    abstract public function saveRole(array $values): int;
+    abstract public function saveRole(array $values);
 
 
     /**
@@ -206,7 +206,7 @@ abstract class Authorizator implements IAuthorizator
      * @param array $values
      * @return int
      */
-    abstract public function saveResource(array $values): int;
+    abstract public function saveResource(array $values);
 
 
     /**
@@ -215,7 +215,7 @@ abstract class Authorizator implements IAuthorizator
      * @param array $values
      * @return int
      */
-    abstract public function savePrivilege(array $values): int;
+    abstract public function savePrivilege(array $values);
 
 
     /**
@@ -225,5 +225,5 @@ abstract class Authorizator implements IAuthorizator
      * @param array $values
      * @return int
      */
-    abstract public function saveAcl($role, array $values): int;
+    abstract public function saveAcl($role, array $values);
 }
