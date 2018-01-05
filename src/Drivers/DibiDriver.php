@@ -144,6 +144,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
+     * @throws \Dibi\Exception
      */
     public function saveRole(array $values)
     {
@@ -170,6 +171,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
+     * @throws \Dibi\Exception
      */
     public function saveResource(array $values)
     {
@@ -196,6 +198,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
+     * @throws \Dibi\Exception
      */
     public function savePrivilege(array $values)
     {
@@ -223,6 +226,7 @@ class DibiDriver extends Authorizator
      * @param       $idRole
      * @param array $values
      * @return int
+     * @throws \Dibi\Exception
      */
     public function saveAcl($idRole, array $values)
     {

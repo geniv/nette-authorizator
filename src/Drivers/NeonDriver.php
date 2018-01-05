@@ -71,18 +71,20 @@ class NeonDriver extends ArrayDriver
 
         if (!$id) {
             // add
-            $role = $this->data['role'];
-            $role[$values['role']] = $values['name'];
-            $this->data['role'] = $role;
+            $this->data['role'][] = $values['role'];
         } else {
             // update
             if ($values) {
-                $role = $this->data['role'];
-                $role[$values['role']] = $values['name'];
-                $this->data['role'] = $role;
+                $index = array_search($id, $this->data['role']);
+                if ($index !== false) {
+                    $this->data['role'][$index] = $values['role'];
+                }
             } else {
                 // delete
-                unset($this->data['role'][$id]);
+                $index = array_search($id, $this->data['role']);
+                if ($index !== false) {
+                    unset($this->data['role'][$index]);
+                }
             }
         }
         return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
@@ -102,18 +104,20 @@ class NeonDriver extends ArrayDriver
 
         if (!$id) {
             // add
-            $resource = $this->data['resource'];
-            $resource[$values['resource']] = $values['name'];
-            $this->data['resource'] = $resource;
+            $this->data['resource'][] = $values['resource'];
         } else {
             // update
             if ($values) {
-                $resource = $this->data['resource'];
-                $resource[$values['resource']] = $values['name'];
-                $this->data['resource'] = $resource;
+                $index = array_search($id, $this->data['resource']);
+                if ($index !== false) {
+                    $this->data['resource'][$index] = $values['resource'];
+                }
             } else {
                 // delete
-                unset($this->data['resource'][$id]);
+                $index = array_search($id, $this->data['resource']);
+                if ($index !== false) {
+                    unset($this->data['resource'][$index]);
+                }
             }
         }
         return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
@@ -133,18 +137,20 @@ class NeonDriver extends ArrayDriver
 
         if (!$id) {
             // add
-            $privilege = $this->data['privilege'];
-            $privilege[$values['privilege']] = $values['name'];
-            $this->data['privilege'] = $privilege;
+            $this->data['privilege'][] = $values['privilege'];
         } else {
             // update
             if ($values) {
-                $privilege = $this->data['privilege'];
-                $privilege[$values['privilege']] = $values['name'];
-                $this->data['privilege'] = $privilege;
+                $index = array_search($id, $this->data['privilege']);
+                if ($index !== false) {
+                    $this->data['privilege'][$index] = $values['privilege'];
+                }
             } else {
                 // delete
-                unset($this->data['privilege'][$id]);
+                $index = array_search($id, $this->data['privilege']);
+                if ($index !== false) {
+                    unset($this->data['privilege'][$index]);
+                }
             }
         }
         return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
@@ -162,11 +168,13 @@ class NeonDriver extends ArrayDriver
     {
         unset($this->data['acl'][$role]);
 
+        // save all to role
         if (isset($values['all']) && $values['all']) {
             $this->data['acl'][$role] = 'all';
             return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
         }
 
+        // save acl by role && resource
         foreach ($values as $idResource => $item) {
             if ($item && is_array($item)) {
                 if (!in_array('all', $item)) {
