@@ -42,20 +42,6 @@ class ResourceForm extends Control
         $this->translator = $translator;
 
         $this->templatePath = __DIR__ . '/ResourceForm.latte';  // default path
-
-        // default onSuccess
-        if (!$this->onSuccess) {
-            $this->onSuccess[] = function () {
-                $this->redirect('this');
-            };
-        }
-
-        // default onError
-        if (!$this->onError) {
-            $this->onError[] = function () {
-                $this->redirect('this');
-            };
-        }
     }
 
 

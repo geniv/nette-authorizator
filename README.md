@@ -123,8 +123,9 @@ protected function createComponentPrivilegeForm(PrivilegeForm $privilegeForm): P
 
 protected function createComponentAclForm(AclForm $aclForm): AclForm
 {
-    //$privilegeForm->onSuccess[] = function (array $values) { };
-    //$privilegeForm->onError[] = function (array $values) { };
+    //$aclForm->setTemplatePath(path);
+    //$aclForm->onSuccess[] = function (array $values) { };
+    //$aclForm->onError[] = function (array $values) { };
     return $aclForm;
 }
 ```
