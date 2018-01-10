@@ -84,6 +84,7 @@ class NeonDriver extends ArrayDriver
                 $index = array_search($id, $this->data['role']);
                 if ($index !== false) {
                     unset($this->data['role'][$index]);
+                    $this->data['role'] = array_values($this->data['role']);    // correct fix for index array
                 }
             }
         }
@@ -117,6 +118,7 @@ class NeonDriver extends ArrayDriver
                 $index = array_search($id, $this->data['resource']);
                 if ($index !== false) {
                     unset($this->data['resource'][$index]);
+                    $this->data['resource'] = array_values($this->data['resource']);    // correct fix for index array
                 }
             }
         }
@@ -150,6 +152,7 @@ class NeonDriver extends ArrayDriver
                 $index = array_search($id, $this->data['privilege']);
                 if ($index !== false) {
                     unset($this->data['privilege'][$index]);
+                    $this->data['privilege'] = array_values($this->data['privilege']);    // correct fix for index array
                 }
             }
         }
