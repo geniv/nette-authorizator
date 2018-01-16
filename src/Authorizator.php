@@ -17,17 +17,17 @@ abstract class Authorizator implements IAuthorizator
 {
     use SmartObject;
 
-    const POLICY_NONE = 'none';
-    const POLICY_ALLOW = 'allow';
-    const POLICY_DENY = 'deny';
+    // define type policy
+    const
+        POLICY_NONE = 'none',
+        POLICY_ALLOW = 'allow',
+        POLICY_DENY = 'deny';
 
     /** @var string */
     protected $policy;
-
-
     /** @var Permission */
     protected $permission;
-
+    /** @var array */
     protected $role = [], $resource = [], $privilege = [], $acl = [];
 
 
@@ -50,10 +50,14 @@ abstract class Authorizator implements IAuthorizator
     /**
      * Get role.
      *
+     * @param null $id
      * @return array
      */
-    public function getRole()
+    public function getRole($id = null)
     {
+        if ($id) {
+            return (isset($this->role[$id]) ? $this->role[$id] : []);
+        }
         return $this->role;
     }
 
@@ -61,10 +65,14 @@ abstract class Authorizator implements IAuthorizator
     /**
      * Get resource.
      *
+     * @param null $id
      * @return array
      */
-    public function getResource()
+    public function getResource($id = null)
     {
+        if ($id) {
+            return (isset($this->resource[$id]) ? $this->resource[$id] : []);
+        }
         return $this->resource;
     }
 
@@ -72,10 +80,14 @@ abstract class Authorizator implements IAuthorizator
     /**
      * Get privilege.
      *
+     * @param null $id
      * @return array
      */
-    public function getPrivilege()
+    public function getPrivilege($id = null)
     {
+        if ($id) {
+            return (isset($this->privilege[$id]) ? $this->privilege[$id] : []);
+        }
         return $this->privilege;
     }
 

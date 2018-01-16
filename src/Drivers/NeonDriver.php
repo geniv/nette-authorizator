@@ -13,7 +13,9 @@ use Nette\Neon\Neon;
  */
 class NeonDriver extends ArrayDriver
 {
+    /** @var string */
     private $path = null;
+    /** @var array */
     private $data = null;
 
 
