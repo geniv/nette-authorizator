@@ -2,10 +2,10 @@
 
 namespace Authorizator\Forms;
 
-use Authorizator\Authorizator;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
+use Nette\Security\IAuthorizator;
 
 
 /**
@@ -16,7 +16,7 @@ use Nette\Localization\ITranslator;
  */
 class PrivilegeForm extends Control
 {
-    /** @var Authorizator */
+    /** @var IAuthorizator */
     private $authorizator;
     /** @var ITranslator|null */
     private $translator;
@@ -31,10 +31,10 @@ class PrivilegeForm extends Control
     /**
      * Forms constructor.
      *
-     * @param Authorizator     $authorizator
+     * @param IAuthorizator    $authorizator
      * @param ITranslator|null $translator
      */
-    public function __construct(Authorizator $authorizator, ITranslator $translator = null)
+    public function __construct(IAuthorizator $authorizator, ITranslator $translator = null)
     {
         parent::__construct();
 
@@ -141,6 +141,7 @@ class PrivilegeForm extends Control
         $template->state = $this->state;
         $template->privilege = $this->authorizator->getPrivilege();
 
+        $template->setTranslator($this->translator);
         $template->setFile($this->templatePath);
         $template->render();
     }

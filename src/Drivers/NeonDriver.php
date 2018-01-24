@@ -104,7 +104,7 @@ class NeonDriver extends ArrayDriver
     {
         $id = $values['id'];
         unset($values['id']);
-
+//FIXME check to unique values!!! pro role + resource + privilege
         if (!$id) {
             // add
             $this->data['resource'][] = $values['resource'];
