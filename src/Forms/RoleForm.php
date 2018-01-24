@@ -2,6 +2,7 @@
 
 namespace Authorizator\Forms;
 
+use Authorizator\Drivers\UniqueConstraintViolationException;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -76,9 +77,11 @@ class RoleForm extends Control
         $form->addSubmit('save', 'acl-roleform-save');
 
         $form->onSuccess[] = function ($form, array $values) {
-            if ($this->authorizator->saveRole($values)) {
-                $this->onSuccess($values);
-            } else {
+            try {
+                if ($this->authorizator->saveRole($values)) {
+                    $this->onSuccess($values);
+                }
+            } catch (UniqueConstraintViolationException $e) {
                 $this->onError($values);
             }
         };

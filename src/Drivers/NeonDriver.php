@@ -66,6 +66,7 @@ class NeonDriver extends ArrayDriver
      * @param array  $values
      * @param string $dataIndex
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     private function generalSave(array $values, $dataIndex)
     {
@@ -77,7 +78,7 @@ class NeonDriver extends ArrayDriver
             if (!in_array($values[$dataIndex], $this->data[$dataIndex])) {
                 $this->data[$dataIndex][] = $values[$dataIndex];
             } else {
-                return 0;
+                throw new UniqueConstraintViolationException($dataIndex . ' already exist!');
             }
         } else {
             // update
@@ -87,8 +88,10 @@ class NeonDriver extends ArrayDriver
                     if ($index !== false && !in_array($values[$dataIndex], $this->data[$dataIndex])) {
                         $this->data[$dataIndex][$index] = $values[$dataIndex];
                     } else {
-                        return 0;
+                        throw new UniqueConstraintViolationException($dataIndex . ' already exist!');
                     }
+                } else {
+                    return 0;
                 }
             } else {
                 // delete
