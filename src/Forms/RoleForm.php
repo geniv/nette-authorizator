@@ -2,10 +2,11 @@
 
 namespace Authorizator\Forms;
 
-use Authorizator\Authorizator;
+use Authorizator\Drivers\UniqueConstraintViolationException;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
+use Nette\Security\IAuthorizator;
 
 
 /**
@@ -16,7 +17,7 @@ use Nette\Localization\ITranslator;
  */
 class RoleForm extends Control
 {
-    /** @var Authorizator */
+    /** @var IAuthorizator */
     private $authorizator;
     /** @var ITranslator|null */
     private $translator;
@@ -31,10 +32,10 @@ class RoleForm extends Control
     /**
      * Forms constructor.
      *
-     * @param Authorizator     $authorizator
+     * @param IAuthorizator    $authorizator
      * @param ITranslator|null $translator
      */
-    public function __construct(Authorizator $authorizator, ITranslator $translator = null)
+    public function __construct(IAuthorizator $authorizator, ITranslator $translator = null)
     {
         parent::__construct();
 
@@ -76,10 +77,12 @@ class RoleForm extends Control
         $form->addSubmit('save', 'acl-roleform-save');
 
         $form->onSuccess[] = function ($form, array $values) {
-            if ($this->authorizator->saveRole($values)) {
-                $this->onSuccess($values);
-            } else {
-                $this->onError($values);
+            try {
+                if ($this->authorizator->saveRole($values) >= 0) {
+                    $this->onSuccess($values);
+                }
+            } catch (UniqueConstraintViolationException $e) {
+                $this->onError($values, $e);
             }
         };
         return $form;
@@ -120,7 +123,7 @@ class RoleForm extends Control
     {
         $role = $this->authorizator->getRole();
         if (isset($role[$id])) {
-            $values = $role[$id];
+            $values = (array) $role[$id];
 
             if ($this->authorizator->saveRole(['id' => $id])) {
                 $this->onSuccess($values);
@@ -141,6 +144,7 @@ class RoleForm extends Control
         $template->state = $this->state;
         $template->role = $this->authorizator->getRole();
 
+        $template->setTranslator($this->translator);
         $template->setFile($this->templatePath);
         $template->render();
     }

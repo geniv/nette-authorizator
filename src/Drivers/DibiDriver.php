@@ -140,29 +140,49 @@ class DibiDriver extends Authorizator
 
 
     /**
-     * Save role.
+     * General save.
      *
-     * @param array $values
-     * @return int
+     * @param array  $values
+     * @param string $table
+     * @return mixed
+     * @throws UniqueConstraintViolationException
      * @throws \Dibi\Exception
      */
-    public function saveRole(array $values)
+    private function generalSave(array $values, $table)
     {
         $id = $values['id'];
         unset($values['id']);
 
-        if (!$id) {
-            // add
-            return $this->connection->insert($this->tableRole, $values)->execute();
-        } else {
-            // update
-            if ($values) {
-                return $this->connection->update($this->tableRole, $values)->where(['id' => $id])->execute();
+        try {
+            if (!$id) {
+                // add
+                return $this->connection->insert($table, $values)->execute();
             } else {
-                // delete
-                return $this->connection->delete($this->tableRole)->where(['id' => $id])->execute();
+                // update
+                if ($values) {
+                    return $this->connection->update($table, $values)->where(['id' => $id])->execute();
+                } else {
+                    // delete
+                    return $this->connection->delete($table)->where(['id' => $id])->execute();
+                }
             }
+        } catch (\Dibi\UniqueConstraintViolationException $e) {
+            throw new UniqueConstraintViolationException('Item already exist!');
         }
+    }
+
+
+    /**
+     * Save role.
+     *
+     * @param array $values
+     * @return int
+     * @throws UniqueConstraintViolationException
+     * @throws \Dibi\Exception
+     */
+    public function saveRole(array $values)
+    {
+        return $this->generalSave($values, $this->tableRole);
     }
 
 
@@ -171,25 +191,12 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      * @throws \Dibi\Exception
      */
     public function saveResource(array $values)
     {
-        $id = $values['id'];
-        unset($values['id']);
-
-        if (!$id) {
-            // add
-            return $this->connection->insert($this->tableResource, $values)->execute();
-        } else {
-            // update
-            if ($values) {
-                return $this->connection->update($this->tableResource, $values)->where(['id' => $id])->execute();
-            } else {
-                // delete
-                return $this->connection->delete($this->tableResource)->where(['id' => $id])->execute();
-            }
-        }
+        return $this->generalSave($values, $this->tableResource);
     }
 
 
@@ -198,25 +205,12 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      * @throws \Dibi\Exception
      */
     public function savePrivilege(array $values)
     {
-        $id = $values['id'];
-        unset($values['id']);
-
-        if (!$id) {
-            // add
-            return $this->connection->insert($this->tablePrivilege, $values)->execute();
-        } else {
-            // update
-            if ($values) {
-                return $this->connection->update($this->tablePrivilege, $values)->where(['id' => $id])->execute();
-            } else {
-                // delete
-                return $this->connection->delete($this->tablePrivilege)->where(['id' => $id])->execute();
-            }
-        }
+        return $this->generalSave($values, $this->tablePrivilege);
     }
 
 

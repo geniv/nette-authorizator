@@ -61,36 +61,61 @@ class NeonDriver extends ArrayDriver
 
 
     /**
-     * Save role.
+     * General save.
      *
-     * @param array $values
+     * @param array  $values
+     * @param string $dataIndex
      * @return int
+     * @throws UniqueConstraintViolationException
      */
-    public function saveRole(array $values)
+    private function generalSave(array $values, $dataIndex)
     {
         $id = $values['id'];
         unset($values['id']);
 
         if (!$id) {
             // add
-            $this->data['role'][] = $values['role'];
+            if (!in_array($values[$dataIndex], $this->data[$dataIndex])) {
+                $this->data[$dataIndex][] = $values[$dataIndex];
+            } else {
+                throw new UniqueConstraintViolationException('Item already exist!');
+            }
         } else {
             // update
             if ($values) {
-                $index = array_search($id, $this->data['role']);
-                if ($index !== false) {
-                    $this->data['role'][$index] = $values['role'];
+                if ($id != $values[$dataIndex]) {
+                    $index = array_search($id, $this->data[$dataIndex]);
+                    if ($index !== false && !in_array($values[$dataIndex], $this->data[$dataIndex])) {
+                        $this->data[$dataIndex][$index] = $values[$dataIndex];
+                    } else {
+                        throw new UniqueConstraintViolationException('Item already exist!');
+                    }
+                } else {
+                    return 0;
                 }
             } else {
                 // delete
-                $index = array_search($id, $this->data['role']);
+                $index = array_search($id, $this->data[$dataIndex]);
                 if ($index !== false) {
-                    unset($this->data['role'][$index]);
-                    $this->data['role'] = array_values($this->data['role']);    // correct fix for index array
+                    unset($this->data[$dataIndex][$index]);
+                    $this->data[$dataIndex] = array_values($this->data[$dataIndex]);    // correct fix for index array
                 }
             }
         }
         return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
+    }
+
+
+    /**
+     * Save role.
+     *
+     * @param array $values
+     * @return int
+     * @throws UniqueConstraintViolationException
+     */
+    public function saveRole(array $values)
+    {
+        return $this->generalSave($values, 'role');
     }
 
 
@@ -99,32 +124,11 @@ class NeonDriver extends ArrayDriver
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     public function saveResource(array $values)
     {
-        $id = $values['id'];
-        unset($values['id']);
-
-        if (!$id) {
-            // add
-            $this->data['resource'][] = $values['resource'];
-        } else {
-            // update
-            if ($values) {
-                $index = array_search($id, $this->data['resource']);
-                if ($index !== false) {
-                    $this->data['resource'][$index] = $values['resource'];
-                }
-            } else {
-                // delete
-                $index = array_search($id, $this->data['resource']);
-                if ($index !== false) {
-                    unset($this->data['resource'][$index]);
-                    $this->data['resource'] = array_values($this->data['resource']);    // correct fix for index array
-                }
-            }
-        }
-        return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
+        return $this->generalSave($values, 'resource');
     }
 
 
@@ -133,32 +137,11 @@ class NeonDriver extends ArrayDriver
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     public function savePrivilege(array $values)
     {
-        $id = $values['id'];
-        unset($values['id']);
-
-        if (!$id) {
-            // add
-            $this->data['privilege'][] = $values['privilege'];
-        } else {
-            // update
-            if ($values) {
-                $index = array_search($id, $this->data['privilege']);
-                if ($index !== false) {
-                    $this->data['privilege'][$index] = $values['privilege'];
-                }
-            } else {
-                // delete
-                $index = array_search($id, $this->data['privilege']);
-                if ($index !== false) {
-                    unset($this->data['privilege'][$index]);
-                    $this->data['privilege'] = array_values($this->data['privilege']);    // correct fix for index array
-                }
-            }
-        }
-        return file_put_contents($this->path, Neon::encode($this->data, Neon::BLOCK));
+        return $this->generalSave($values, 'privilege');
     }
 
 
