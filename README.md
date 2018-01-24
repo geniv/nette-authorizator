@@ -99,7 +99,7 @@ protected function createComponentRoleForm(RoleForm $roleForm): RoleForm
 {
     //$roleForm->setTemplatePath(path);
     //$roleForm->onSuccess[] = function (array $values) { };
-    //$roleForm->onError[] = function (array $values) { };
+    //$roleForm->onError[] = function (array $values, Exception $e = null) { };
     return $roleForm;
 }
 
@@ -108,7 +108,7 @@ protected function createComponentResourceForm(ResourceForm $resourceForm): Reso
 {
     //$resourceForm->setTemplatePath(path);
     //$resourceForm->onSuccess[] = function (array $values) { };
-    //$resourceForm->onError[] = function (array $values) { };
+    //$resourceForm->onError[] = function (array $values, Exception $e = null) { };
     return $resourceForm;
 }
 
@@ -117,7 +117,7 @@ protected function createComponentPrivilegeForm(PrivilegeForm $privilegeForm): P
 {
     //$privilegeForm->setTemplatePath(path);
     //$privilegeForm->onSuccess[] = function (array $values) { };
-    //$privilegeForm->onError[] = function (array $values) { };
+    //$privilegeForm->onError[] = function (array $values, Exception $e = null) { };
     return $privilegeForm;
 }
 
