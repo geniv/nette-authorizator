@@ -78,11 +78,11 @@ class RoleForm extends Control
 
         $form->onSuccess[] = function ($form, array $values) {
             try {
-                if ($this->authorizator->saveRole($values)) {
+                if ($this->authorizator->saveRole($values) >= 0) {
                     $this->onSuccess($values);
                 }
             } catch (UniqueConstraintViolationException $e) {
-                $this->onError($values);
+                $this->onError($values, $e);
             }
         };
         return $form;
@@ -123,7 +123,7 @@ class RoleForm extends Control
     {
         $role = $this->authorizator->getRole();
         if (isset($role[$id])) {
-            $values = $role[$id];
+            $values = (array) $role[$id];
 
             if ($this->authorizator->saveRole(['id' => $id])) {
                 $this->onSuccess($values);

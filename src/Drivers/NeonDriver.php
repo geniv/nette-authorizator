@@ -78,7 +78,7 @@ class NeonDriver extends ArrayDriver
             if (!in_array($values[$dataIndex], $this->data[$dataIndex])) {
                 $this->data[$dataIndex][] = $values[$dataIndex];
             } else {
-                throw new UniqueConstraintViolationException($dataIndex . ' already exist!');
+                throw new UniqueConstraintViolationException('item already exist!');
             }
         } else {
             // update
@@ -88,7 +88,7 @@ class NeonDriver extends ArrayDriver
                     if ($index !== false && !in_array($values[$dataIndex], $this->data[$dataIndex])) {
                         $this->data[$dataIndex][$index] = $values[$dataIndex];
                     } else {
-                        throw new UniqueConstraintViolationException($dataIndex . ' already exist!');
+                        throw new UniqueConstraintViolationException('item already exist!');
                     }
                 } else {
                     return 0;
