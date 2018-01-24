@@ -146,7 +146,7 @@ class DibiDriver extends Authorizator
      * @param array  $values
      * @param string $table
      * @return mixed
-     * @throws Exception
+     * @throws UniqueConstraintViolationException
      */
     private function generalSave(array $values, $table)
     {
@@ -167,9 +167,7 @@ class DibiDriver extends Authorizator
                 }
             }
         } catch (\Dibi\UniqueConstraintViolationException $e) {
-            throw new \Authorizator\Drivers\UniqueConstraintViolationException('item already exist!');
-        } catch (Exception $e) {
-            throw $e;
+            throw new UniqueConstraintViolationException('Item already exist!');
         }
     }
 
@@ -179,7 +177,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
-     * @throws Exception
+     * @throws UniqueConstraintViolationException
      */
     public function saveRole(array $values)
     {
@@ -192,7 +190,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
-     * @throws \Dibi\Exception
+     * @throws UniqueConstraintViolationException
      */
     public function saveResource(array $values)
     {
@@ -205,7 +203,7 @@ class DibiDriver extends Authorizator
      *
      * @param array $values
      * @return int
-     * @throws \Dibi\Exception
+     * @throws UniqueConstraintViolationException
      */
     public function savePrivilege(array $values)
     {
