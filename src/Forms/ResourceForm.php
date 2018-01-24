@@ -2,6 +2,7 @@
 
 namespace Authorizator\Forms;
 
+use Authorizator\Drivers\UniqueConstraintViolationException;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -76,10 +77,12 @@ class ResourceForm extends Control
         $form->addSubmit('save', 'acl-resourceform-save');
 
         $form->onSuccess[] = function ($form, array $values) {
-            if ($this->authorizator->saveResource($values)) {
-                $this->onSuccess($values);
-            } else {
-                $this->onError($values);
+            try {
+                if ($this->authorizator->saveResource($values) >= 0) {
+                    $this->onSuccess($values);
+                }
+            } catch (UniqueConstraintViolationException $e) {
+                $this->onError($values, $e);
             }
         };
         return $form;
@@ -120,7 +123,7 @@ class ResourceForm extends Control
     {
         $resource = $this->authorizator->getResource();
         if (isset($resource[$id])) {
-            $values = $resource[$id];
+            $values = (array) $resource[$id];
 
             if ($this->authorizator->saveResource(['id' => $id])) {
                 $this->onSuccess($values);

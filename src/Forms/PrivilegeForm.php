@@ -2,6 +2,7 @@
 
 namespace Authorizator\Forms;
 
+use Authorizator\Drivers\UniqueConstraintViolationException;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -76,10 +77,12 @@ class PrivilegeForm extends Control
         $form->addSubmit('save', 'acl-privilegeform-save');
 
         $form->onSuccess[] = function ($form, array $values) {
-            if ($this->authorizator->savePrivilege($values)) {
-                $this->onSuccess($values);
-            } else {
-                $this->onError($values);
+            try {
+                if ($this->authorizator->savePrivilege($values) >= 0) {
+                    $this->onSuccess($values);
+                }
+            } catch (UniqueConstraintViolationException $e) {
+                $this->onError($values, $e);
             }
         };
         return $form;
@@ -120,7 +123,7 @@ class PrivilegeForm extends Control
     {
         $privilege = $this->authorizator->getPrivilege();
         if (isset($privilege[$id])) {
-            $values = $privilege[$id];
+            $values = (array) $privilege[$id];
 
             if ($this->authorizator->savePrivilege(['id' => $id])) {
                 $this->onSuccess($values);
