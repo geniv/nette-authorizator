@@ -4,7 +4,6 @@ namespace Authorizator\Drivers;
 
 use Authorizator\Authorizator;
 use Dibi\Connection;
-use Exception;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 
@@ -147,6 +146,7 @@ class DibiDriver extends Authorizator
      * @param string $table
      * @return mixed
      * @throws UniqueConstraintViolationException
+     * @throws \Dibi\Exception
      */
     private function generalSave(array $values, $table)
     {
@@ -178,6 +178,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      * @throws UniqueConstraintViolationException
+     * @throws \Dibi\Exception
      */
     public function saveRole(array $values)
     {
@@ -191,6 +192,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      * @throws UniqueConstraintViolationException
+     * @throws \Dibi\Exception
      */
     public function saveResource(array $values)
     {
@@ -204,6 +206,7 @@ class DibiDriver extends Authorizator
      * @param array $values
      * @return int
      * @throws UniqueConstraintViolationException
+     * @throws \Dibi\Exception
      */
     public function savePrivilege(array $values)
     {
