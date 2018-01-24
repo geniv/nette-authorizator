@@ -78,7 +78,7 @@ class NeonDriver extends ArrayDriver
             if (!in_array($values[$dataIndex], $this->data[$dataIndex])) {
                 $this->data[$dataIndex][] = $values[$dataIndex];
             } else {
-                throw new UniqueConstraintViolationException('item already exist!');
+                throw new UniqueConstraintViolationException('Item already exist!');
             }
         } else {
             // update
@@ -88,7 +88,7 @@ class NeonDriver extends ArrayDriver
                     if ($index !== false && !in_array($values[$dataIndex], $this->data[$dataIndex])) {
                         $this->data[$dataIndex][$index] = $values[$dataIndex];
                     } else {
-                        throw new UniqueConstraintViolationException('item already exist!');
+                        throw new UniqueConstraintViolationException('Item already exist!');
                     }
                 } else {
                     return 0;
@@ -111,6 +111,7 @@ class NeonDriver extends ArrayDriver
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     public function saveRole(array $values)
     {
@@ -123,6 +124,7 @@ class NeonDriver extends ArrayDriver
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     public function saveResource(array $values)
     {
@@ -135,6 +137,7 @@ class NeonDriver extends ArrayDriver
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     public function savePrivilege(array $values)
     {
