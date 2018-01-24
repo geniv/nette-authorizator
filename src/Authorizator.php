@@ -2,6 +2,7 @@
 
 namespace Authorizator;
 
+use Authorizator\Drivers\UniqueConstraintViolationException;
 use Nette\Security\IAuthorizator;
 use Nette\Security\Permission;
 use Nette\SmartObject;
@@ -208,6 +209,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     abstract public function saveRole(array $values);
 
@@ -217,6 +219,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     abstract public function saveResource(array $values);
 
@@ -226,6 +229,7 @@ abstract class Authorizator implements IAuthorizator
      *
      * @param array $values
      * @return int
+     * @throws UniqueConstraintViolationException
      */
     abstract public function savePrivilege(array $values);
 
