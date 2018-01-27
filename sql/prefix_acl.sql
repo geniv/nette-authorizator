@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Úte 14. lis 2017, 16:11
+-- Vytvořeno: Sob 27. led 2018, 20:26
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
--- Verze PHP: 7.0.19-1
+-- Verze PHP: 7.0.27-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,12 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `prefix_acl` (
-  `id` int(11) NOT NULL,
-  `id_role` int(11) DEFAULT NULL COMMENT 'vazba na role',
-  `id_resource` int(11) DEFAULT NULL COMMENT 'vazba na zdroj',
-  `id_privilege` int(11) DEFAULT NULL COMMENT 'vazba na opravneni',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_role` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'vazba na role',
+  `id_resource` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'vazba na zdroj',
+  `id_privilege` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'vazba na opravneni',
   `active` tinyint(1) DEFAULT '0' COMMENT 'aktivni',
-  `position` int(11) DEFAULT '0' COMMENT 'poradi'
+  `position` bigint(20) UNSIGNED DEFAULT '0' COMMENT 'poradi'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl';
 
 --
@@ -67,7 +67,7 @@ ALTER TABLE `prefix_acl`
 -- AUTO_INCREMENT pro tabulku `prefix_acl`
 --
 ALTER TABLE `prefix_acl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 --
 -- Omezení pro exportované tabulky
 --

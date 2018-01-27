@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost:3306
--- Vytvořeno: Úte 14. lis 2017, 16:11
+-- Vytvořeno: Sob 27. led 2018, 20:26
 -- Verze serveru: 10.1.26-MariaDB-0+deb9u1
--- Verze PHP: 7.0.19-1
+-- Verze PHP: 7.0.27-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `prefix_acl_privilege` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `privilege` varchar(255) DEFAULT NULL COMMENT 'opravneni'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='acl opravneni';
 
@@ -60,7 +60,7 @@ ALTER TABLE `prefix_acl_privilege`
 -- AUTO_INCREMENT pro tabulku `prefix_acl_privilege`
 --
 ALTER TABLE `prefix_acl_privilege`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
